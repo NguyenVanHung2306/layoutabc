@@ -1,0 +1,615 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--    <meta name="viewport" content="width=device-width, initialscale=1.0">-->
+<!--    <title>MOS - Your Gateway to Academic Excellence</title>-->
+<!--    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
+<!--    <link th:fragment="custom-css" rel="stylesheet" th:href="@{/css/style.css}">-->
+<!--    <style>-->
+<!--        .icon-text {-->
+<!--            display: inline-block;-->
+<!--            font-size: 30px;-->
+<!--            font-weight: bold;-->
+<!--            color: #333;-->
+<!--            margin: 0 5px;-->
+<!--            vertical-align: middle;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body class="d-flex flex-column h-100">-->
+
+<!--<header th:fragment="header">-->
+<!--    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">-->
+<!--        <div class="container-fluid">-->
+<!--            <a href="/" class="navbar-brand">-->
+<!--                <span class="icon-text">M</span>-->
+<!--                <span class="icon-text">O</span>-->
+<!--                <span class="icon-text">S</span>-->
+<!--            </a>-->
+<!--            <button class="navbar-toggler" type="button" data-bstoggle="collapse"-->
+<!--                    data-bs-target="#navbarSupportedContent"-->
+<!--                    aria-controls="navbarSupportedContent"-->
+<!--                    aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--            </button>-->
+<!--            <div class="collapse navbar-collapse"-->
+<!--                 id="navbarSupportedContent">-->
+<!--                <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link active" aria-current="page" href="/">-->
+<!--                            Trang chủ-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/Admin/LoaiTruongs">-->
+<!--                            Loại trường-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item"-->
+<!--                        sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/Admin/Truongs">-->
+<!--                            Trường-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/Admin/MonThis">-->
+<!--                            Môn thi-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/Admin/QuyDinhs">-->
+<!--                            Quy định-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/Admin/NoiDungs">-->
+<!--                            Nội dung-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/Admin/CuocThis">-->
+<!--                            Cuộc thi-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('USER', 'OIDC_USER')">-->
+<!--                        <a class="nav-link" href="/User/CuocThis">-->
+<!--                            Cuộc thi-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('USER', 'OIDC_USER')">-->
+<!--                        <a class="nav-link" href="/User/PhieuDangKys/search">-->
+<!--                            Phiếu đăng ký-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('USER', 'OIDC_USER')">-->
+<!--                        <a class="nav-link" href="/User/PhieuKetQuas/search">-->
+<!--                            Tra kết quả-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/ThongKe">-->
+<!--                            Thống kê-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                        <a class="nav-link" href="/User/edit">-->
+<!--                            Thông tin-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--                <ul class="navbar-nav ml-auto">-->
+<!--                    <li sec:authorize="isAuthenticated()">-->
+<!--                        <a class="nav-link" href="#">-->
+<!--                            <i class="bi bi-person-circle"></i>-->
+<!--                            <span th:text="${#authentication.getName()}"></span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li sec:authorize="isAuthenticated()">-->
+<!--                        <a class="nav-link" href="#">-->
+<!--                            <i class="bi bi-person-circle"></i>-->
+<!--                            <form th:action="@{/logout}" method="post">-->
+<!--                                <button class="btn btn-outline-danger btn-sm" type="submit">Logout</button>-->
+<!--                            </form>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li sec:authorize="!isAuthenticated()">-->
+<!--                        <a class="nav-link btn btn-outline-light" href="/login">-->
+<!--                            <i class="bi bi-box-arrow-in-right"></i>-->
+<!--                            Login-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
+<!--</header>-->
+
+
+
+<!--<div class="container my-5">-->
+<!--    <div th:fragment="content"></div>-->
+<!--</div>-->
+
+<!--<footer th:fragment="footer" class="footer mt-auto py-3 bg-dark text-white">-->
+<!--    <div class="container text-center">-->
+<!--        <p>Powered by <a href="https://www.hutech.edu.vn/" class="text-white">HUTECH Education</a></p>-->
+<!--    </div>-->
+<!--</footer>-->
+<!--<script th:src="@{/js/bootstrap.min.js}"></script>-->
+<!--<script th:src="@{/js/jquery-3.7.0.min.js}"></script>-->
+<!--</body>-->
+
+<!--</html>-->
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--    <meta name="viewport" content="width=device-width, initialscale=1.0">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOS - Your Gateway to Academic Excellence</title>
+    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link th:fragment="custom-css" rel="stylesheet" th:href="@{/css/style.css}">
+    <link th:fragment="link-fonts" rel="stylesheet" th:href="@{/fonts/font/css/all.min.css}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body >
+<nav class="sidebar close" th:fragment="header">
+    <header>
+        <div class="image-text">
+                <span class="image">
+                    <img src="/images/logoMOS.jpg" alt="logo">
+                </span>
+            <div class="text header-text">
+                <span class="name">MOS Vietnam</span>
+                <span class="profession">Hệ thống hỗ trợ cuộc thi</span>
+            </div>
+        </div>
+        <i class='bx bx-chevron-right toggle'></i>
+    </header>
+    <div class="menu-bar">
+        <div class="menu">
+            <ul class="menu-links">
+                <li class="nav-link">
+                    <a aria-current="page" href="/">
+                        <i class="bx bx-home icon"></i>
+                        <span class="text nav-text" >Trang chủ</span>
+                    </a>
+                </li>
+                <li class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a href="/Admin/LoaiTruongs">
+                        <i class='bx bxs-buildings icon'></i>
+                        <span class="text nav-text">Loại trường</span>
+                    </a>
+                </li>
+                <li class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a class="nav-link" href="/Admin/Truongs">
+                        <i class='bx bxs-school icon' ></i>
+                        <span class="text nav-text">Trường</span>
+                    </a>
+                </li>
+                <li class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a class="nav-link" href="/Admin/QuyDinhs">
+                        <i class='bx bx-bookmarks icon'></i>
+                        <span class="text nav-text">Quy định</span>
+                    </a>
+                </li>
+                <li class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a class="nav-link" href="/Admin/NoiDungs">
+                        <i class='bx bxs-book-content icon'></i>
+                        <span class="text nav-text">Nội dung</span>
+                    </a>
+                </li>
+                <li class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a class="nav-link" href="/Admin/CuocThis">
+                        <i class='bx bx-notepad icon'></i>
+                        <span class="text nav-text">Cuộc thi</span>
+                    </a>
+                </li>
+                <li class="nav-link" sec:authorize="hasAnyAuthority('USER', 'OIDC_USER')">
+                    <a class="nav-link" href="/User/CuocThis">
+                        <i class='bx bx-trophy icon'></i>
+                        <span class="text nav-text">Cuộc thi</span>
+                    </a>
+                </li><li class="nav-link" sec:authorize="hasAnyAuthority('USER', 'OIDC_USER')">
+                <a class="nav-link" href="/User/CuocThis">
+                    <i class='bx bx-trophy icon'></i>
+                    <span class="text nav-text">Phiếu đăng kí</span>
+                </a>
+            </li>
+                <li class="nav-link" sec:authorize="hasAnyAuthority('USER', 'OIDC_USER')">
+                    <a href="/User/CuocThis">
+                        <i class='bx bx-trophy icon'></i>
+                        <span class="text nav-text">Tra kết quả</span>
+                    </a>
+                </li>
+                <li class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a class="nav-link" href="/Admin">
+                        <i class='bx bxs-bar-chart-alt-2 icon'></i>
+                        <span class="text nav-text">Thống kê</span>
+                    </a>
+                </li>
+                <!--                <li class="nav-link" sec:authorize="isAuthenticated()>-->
+                <!--                        <a href="/User/edit">-->
+                <!--                        <i class='bx bxs-bar-chart-alt-2 icon'></i>-->
+                <!--                        <span class="text nav-text">Thông tin</span>-->
+                <!--                    </a>-->
+                <!--                </li>-->
+
+            </ul>
+        </div>
+        <div class="bottom-content">
+            <li sec:authorize="isAuthenticated()">
+                <a href="#">
+                    <i class='bx bx-log-out icon'></i>
+                    <span class="text nav-text">
+                        <form th:action="@{/logout}" method="post">
+                        <button class="text nav-text" type="submit">Logout</button>
+                    </form>
+                    </span>
+                </a>
+            </li>
+            <li sec:authorize="!isAuthenticated()" class="bottom-content">
+                <a class="nav-link" href="/login">
+                    <i class="bi bi-box-arrow-in-right icon"></i>
+                    <span class="text nav-text">Login</span>
+                </a>
+            </li>
+            <li class="mode">
+                <div class="moon-sun">
+                    <i class='bx bx-moon icon moon'></i>
+                    <i class='bx bx-sun icon sun'></i>
+                </div>
+                <span class="mode-text text">Chế độ tối</span>
+                <div class="toggle-switch">
+                    <span class="switch"></span>
+                </div>
+            </li>
+        </div>
+    </div>
+
+    <!--<div class="container my-5">-->
+    <!--    <div th:fragment="content"></div>-->
+    <!--</div>-->
+    <section class="home">
+        <div th:fragment="content"></div>-->
+    </section>
+    <footer th:fragment="footer" class="footer mt-auto py-3 bg-dark text-white">
+        <div class="container text-center">
+            <p>Powered by <a href="https://www.hutech.edu.vn/" class="text-white">HUTECH Education</a></p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery-3.7.0.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+</nav>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--    <meta name="viewport" content="width=device-width, initialscale=1.0">-->
+<!--    <title>MOS - Your Gateway to Academic Excellence</title>-->
+<!--    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
+<!--    <link th:fragment="custom-css" rel="stylesheet" th:href="@{/css/style.css}">-->
+<!--    <style>-->
+<!--        .icon-text {-->
+<!--            display: inline-block;-->
+<!--            font-size: 30px;-->
+<!--            font-weight: bold;-->
+<!--            color: #333;-->
+<!--            margin: 0 5px;-->
+<!--            vertical-align: middle;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body class="d-flex flex-column h-100">-->
+
+<!--<header th:fragment="header">-->
+<!--    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">-->
+<!--        <div class="container-fluid">-->
+<!--            <a href="/" class="navbar-brand">-->
+<!--                <span class="icon-text">M</span>-->
+<!--                <span class="icon-text">O</span>-->
+<!--                <span class="icon-text">S</span>-->
+<!--            </a>-->
+<!--            <button class="navbar-toggler" type="button" data-bstoggle="collapse"-->
+<!--                    data-bs-target="#navbarSupportedContent"-->
+<!--                    aria-controls="navbarSupportedContent"-->
+<!--                    aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--            </button>-->
+<!--            <div class="collapse navbar-collapse"-->
+<!--                 id="navbarSupportedContent">-->
+<!--                <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link active" aria-current="page" href="/">-->
+<!--                            Trang chủ-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/Admin/LoaiTruongs">-->
+<!--                            Loại trường-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item"-->
+<!--                        sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/Admin/Truongs">-->
+<!--                            Trường-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/Admin/MonThis">-->
+<!--                            Môn thi-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/Admin/QuyDinhs">-->
+<!--                            Quy định-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/Admin/NoiDungs">-->
+<!--                            Nội dung-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/Admin/CuocThis">-->
+<!--                            Cuộc thi-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('USER', 'OIDC_USER')">-->
+<!--                        <a class="nav-link" href="/User/CuocThis">-->
+<!--                            Cuộc thi-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('USER', 'OIDC_USER')">-->
+<!--                        <a class="nav-link" href="/User/PhieuDangKys/search">-->
+<!--                            Phiếu đăng ký-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('USER', 'OIDC_USER')">-->
+<!--                        <a class="nav-link" href="/User/PhieuKetQuas/search">-->
+<!--                            Tra kết quả-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a class="nav-link" href="/ThongKe">-->
+<!--                            Thống kê-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                        <a class="nav-link" href="/User/edit">-->
+<!--                            Thông tin-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--                <ul class="navbar-nav ml-auto">-->
+<!--                    <li sec:authorize="isAuthenticated()">-->
+<!--                        <a class="nav-link" href="#">-->
+<!--                            <i class="bi bi-person-circle"></i>-->
+<!--                            <span th:text="${#authentication.getName()}"></span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li sec:authorize="isAuthenticated()">-->
+<!--                        <a class="nav-link" href="#">-->
+<!--                            <i class="bi bi-person-circle"></i>-->
+<!--                            <form th:action="@{/logout}" method="post">-->
+<!--                                <button class="btn btn-outline-danger btn-sm" type="submit">Logout</button>-->
+<!--                            </form>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li sec:authorize="!isAuthenticated()">-->
+<!--                        <a class="nav-link btn btn-outline-light" href="/login">-->
+<!--                            <i class="bi bi-box-arrow-in-right"></i>-->
+<!--                            Login-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
+<!--</header>-->
+
+
+
+<!--<div class="container my-5">-->
+<!--    <div th:fragment="content"></div>-->
+<!--</div>-->
+
+<!--<footer th:fragment="footer" class="footer mt-auto py-3 bg-dark text-white">-->
+<!--    <div class="container text-center">-->
+<!--        <p>Powered by <a href="https://www.hutech.edu.vn/" class="text-white">HUTECH Education</a></p>-->
+<!--    </div>-->
+<!--</footer>-->
+<!--<script th:src="@{/js/bootstrap.min.js}"></script>-->
+<!--<script th:src="@{/js/jquery-3.7.0.min.js}"></script>-->
+<!--</body>-->
+
+<!--</html>-->
+
+
+
+
+<!--day-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--    <meta name="viewport" content="width=device-width, initialscale=1.0">-->
+<!--    <title>MOS - Your Gateway to Academic Excellence</title>-->
+<!--    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
+<!--    <link th:fragment="custom-css" rel="stylesheet" th:href="@{/css/style.css}">-->
+<!--    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>-->
+<!--</head>-->
+<!--<body >-->
+<!--<nav class="sidebar close" th:fragment="header">-->
+<!--    <header >-->
+<!--        <div class="image-text">-->
+<!--                <span class="image">-->
+<!--                    <img src="logo.png" alt="logo">-->
+<!--                </span>-->
+<!--            <div class="text header-text">-->
+<!--                <span class="name">MOS Vietnam</span>-->
+<!--                <span class="profession">Hệ thống hỗ trợ cuộc thi</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <i class='bx bx-chevron-right toggle'></i>-->
+<!--    </header>-->
+<!--    <div class="menu-bar">-->
+<!--        <div class="menu">-->
+<!--            <ul class="menu-links">-->
+<!--                <li class="nav-link">-->
+<!--                    <a aria-current="page" href="/">-->
+<!--                        <i class='bx bx-home icon'></i>-->
+<!--                        <span class="text nav-text" >Trang chủ</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                    <a class="nav-link" href="/User/CuocThis">-->
+<!--                        <i class='bx bx-trophy icon'></i>-->
+<!--                        <span class="text nav-text">Cuộc thi</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">>-->
+<!--                    <a href="/Admin/LoaiTruongs">-->
+<!--                        <i class='bx bxs-buildings icon'></i>-->
+<!--                        <span class="text nav-text">Loại trường</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                    <a class="nav-link" href="/Admin/Truongs">-->
+<!--                        <i class='bx bxs-school icon' ></i>-->
+<!--                        <span class="text nav-text">Trường</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                    <a class="nav-link" href="/Admin/QuyDinhs">-->
+<!--                        <i class='bx bx-bookmarks icon'></i>-->
+<!--                        <span class="text nav-text">Quy định</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                    <a class="nav-link" href="/Admin/NoiDungs">-->
+<!--                        <i class='bx bxs-book-content icon'></i>-->
+<!--                        <span class="text nav-text">Nội dung</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                    <a class="nav-link" href="/Admin/CuocThis">-->
+<!--                        <i class='bx bx-notepad icon'></i>-->
+<!--                        <span class="text nav-text">Cuộc thi</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="nav-link" sec:authorize="hasAnyAuthority('USER', 'OIDC_USER')">-->
+<!--                    <a class="nav-link" href="/User/CuocThis">-->
+<!--                        <i class='bx bx-trophy icon'></i>-->
+<!--                        <span class="text nav-text">Cuộc thi</span>-->
+<!--                    </a>-->
+<!--                </li><li class="nav-link" sec:authorize="hasAnyAuthority('USER', 'OIDC_USER')">-->
+<!--                <a class="nav-link" href="/User/CuocThis">-->
+<!--                    <i class='bx bx-trophy icon'></i>-->
+<!--                    <span class="text nav-text">Phiếu đăng kí</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--                <li class="nav-link" sec:authorize="hasAnyAuthority('USER', 'OIDC_USER')">-->
+<!--                    <a href="/User/CuocThis">-->
+<!--                        <i class='bx bx-trophy icon'></i>-->
+<!--                        <span class="text nav-text">Tra kết quả</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="nav-link" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                    <a class="nav-link" href="/ThongKe">-->
+<!--                        <i class='bx bxs-bar-chart-alt-2 icon'></i>-->
+<!--                        <span class="text nav-text">Thống kê</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li  class="nav-link" sec:authorize="!isAuthenticated()">&ndash;&gt;-->
+<!--                    <a class="nav-link" href="/login">-->
+<!--                        <i class="bi bi-box-arrow-in-right"></i>-->
+<!--                        Login-->
+<!--                    </a>-->
+<!--                </li>-->
+
+
+<!--                &lt;!&ndash;                <li class="nav-link" sec:authorize="isAuthenticated()>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <a href="/User/edit">&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <i class='bx bxs-bar-chart-alt-2 icon'></i>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <span class="text nav-text">Thông tin</span>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </a>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </li>&ndash;&gt;-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--        <div class="bottom-content">-->
+<!--            <li sec:authorize="isAuthenticated()">-->
+<!--                <a href="#">-->
+<!--                    <i class='bx bx-log-out icon'></i>-->
+<!--                    <span class="text nav-text">-->
+<!--                        <form th:action="@{/logout}" method="post">-->
+<!--                        <button class="text nav-text" type="submit">Logout</button>-->
+<!--                    </form>-->
+<!--                    </span>-->
+
+<!--                </a>-->
+<!--            </li>-->
+<!--            <li class="mode">-->
+<!--                <div class="moon-sun">-->
+<!--                    <i class='bx bx-moon icon moon'></i>-->
+<!--                    <i class='bx bx-sun icon sun'></i>-->
+<!--                </div>-->
+<!--                <span class="mode-text text">Chế độ tối</span>-->
+<!--                <div class="toggle-switch">-->
+<!--                    <span class="switch"></span>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+
+<!--    <div class="container my-5">-->
+<!--        <div th:fragment="content"></div>-->
+<!--    </div>-->
+
+
+<!--    <footer th:fragment="footer" class="footer mt-auto py-3 bg-dark text-white">-->
+<!--        <div class="container text-center">-->
+<!--            <p>Powered by <a href="https://www.hutech.edu.vn/" class="text-white">HUTECH Education</a></p>-->
+<!--        </div>-->
+<!--    </footer>-->
+<!--    <script th:src="@{/js/bootstrap.min.js}"></script>-->
+<!--    <script th:src="@{/js/jquery-3.7.0.min.js}"></script>-->
+<!--    <script th:src="@{/js/script.js}"></script>-->
+<!--    -->
+<!--</body>-->
+
+<!--</html>-->
